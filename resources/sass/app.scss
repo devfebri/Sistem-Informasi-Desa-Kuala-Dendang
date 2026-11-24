@@ -1,0 +1,198 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// ---- Layout aplikasi ----
+$sidebar-width: 250px;
+
+.app-sidebar {
+    width: $sidebar-width;
+    background: #14352a;
+    color: #cfe3d8;
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1040;
+    overflow-y: auto;
+    transition: transform 0.2s ease;
+
+    .brand {
+        padding: 1rem 1.25rem;
+        font-weight: 600;
+        color: #fff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 1rem 1.25rem 0.25rem;
+        color: #7fa593;
+    }
+
+    .nav-link {
+        color: #cfe3d8;
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+
+        &:hover { background: rgba(255, 255, 255, 0.07); color: #fff; }
+        &.active { background: $primary; color: #fff; }
+    }
+}
+
+.app-main {
+    margin-left: $sidebar-width;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-topbar {
+    background: #fff;
+    border-bottom: 1px solid #e3e8ee;
+    padding: 0.6rem 1.25rem;
+}
+
+.app-content { padding: 1.25rem; flex: 1; }
+
+.sidebar-backdrop { display: none; }
+
+@include media-breakpoint-down(lg) {
+    .app-sidebar { transform: translateX(-100%); }
+    .app-main { margin-left: 0; }
+
+    body.sidebar-open {
+        .app-sidebar { transform: none; }
+        .sidebar-backdrop {
+            display: block;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1030;
+        }
+    }
+}
+
+.card { border: 1px solid #e3e8ee; }
+
+// Halaman awal (landing)
+.landing { background: #fff; }
+.landing section[id], .landing footer[id] { scroll-margin-top: 70px; }
+
+.landing-hero {
+    background:
+        radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.14), transparent 40%),
+        linear-gradient(135deg, #14352a 0%, #1f6f4a 100%);
+}
+
+.landing-stat { background: #f1f6f3; }
+
+.landing-ikon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #e3f1ea;
+    color: $primary;
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+}
+
+.landing-card { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.landing-card:hover { transform: translateY(-3px); box-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.1) !important; }
+
+.landing-langkah {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $primary;
+    color: #fff;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+.landing-cek { background: linear-gradient(180deg, #f1f6f3, #fff); }
+
+.landing-footer { background: #14352a; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto !important; }
+    .landing-card { transition: none; }
+}
+
+// Halaman login
+.login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #14352a 0%, #1f6f4a 100%);
+    padding: 1rem;
+}
+
+.login-card { width: 100%; max-width: 400px; }
+
+// Dashboard
+.grafik { position: relative; height: 280px; }
+
+// Peta
+.peta { height: 65vh; min-height: 380px; border-radius: $border-radius; border: 1px solid #e3e8ee; z-index: 0; }
+.peta-form { height: 55vh; min-height: 360px; }
+.peta-legenda {
+    background: rgba(255, 255, 255, 0.92);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    font-size: 0.8rem;
+    line-height: 1.5;
+
+    i { display: inline-block; width: 14px; height: 14px; margin-right: 6px; vertical-align: -2px; border-radius: 2px; opacity: 0.85; }
+}
+
+// Timeline riwayat kepemilikan
+.timeline {
+    position: relative;
+    padding-left: 1.4rem;
+    border-left: 2px solid #d5dde5;
+    margin-left: 0.4rem;
+
+    .timeline-item { position: relative; padding-bottom: 1rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: calc(-1.4rem - 7px);
+        top: 0.35rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #adb5bd;
+        border: 2px solid #fff;
+    }
+    .timeline-item.current::before { background: $primary; }
+}
+
+// Skeleton loading
+.skeleton-row td::after {
+    content: '';
+    display: block;
+    height: 0.9rem;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #eceff3 25%, #f7f8fa 50%, #eceff3 75%);
+    background-size: 200% 100%;
+    animation: skeleton 1.2s infinite;
+}
+
+@keyframes skeleton {
+    to { background-position: -200% 0; }
+}
+
+// NProgress
+#nprogress .bar { background: #f0ad4e; height: 3px; z-index: 2000; }
+#nprogress .peg { box-shadow: 0 0 10px #f0ad4e, 0 0 5px #f0ad4e; }
+#nprogress .spinner { display: none; }

@@ -1,0 +1,10 @@
+// DataTables & Select2 hanya dimuat di halaman yang membutuhkannya.
+@import 'datatables.net-bs5/css/dataTables.bootstrap5.css';
+@import 'select2/dist/css/select2.css';
+@import 'select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
+
+div.dt-container .dt-processing {
+    z-index: 5;
+}
+
+table.dataTable > tbody > tr > td { vertical-align: middle; }
